@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jesvin Varghese Kurien - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #0f172a;
+            --light: #f1f5f9;
+            --text: #334155;
+            --accent: #06b6d4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+
+        .cursor-follower.hover {
+            width: 80px;
+            height: 80px;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cursor.on-dark {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cursor-follower.on-dark {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--dark);
+            position: relative;
+        }
+
+
+        .cert-item a {
+    text-decoration: none; /* removes underline */
+    color: inherit;        /* keeps text color same as parent */}
+ 
+.cert-item a h3{
+display:flex;
+gap:0.5rem;
+align-items:center;
+}
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+        .skill-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-item {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            border-left: 4px solid var(--primary);
+        }
+
+        .experience-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-date {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+ align-items: stretch;
+        }
+
+
+        .project-card a{
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card a:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover h3 {
+            color: var(--secondary);
+        }
+
+     
+
+        .external-link-icon {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover .external-link-icon {
+            transform: rotate(45deg);
+        }
+
+        .project-card p {
+            color: #64748b;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover p {
+            color: #334155;
+        }
+
+        .certifications-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .cert-item {
+            
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--accent);
+        }
+.cert-item 
+
+        .cert-item {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            gap=0.5 rem;
+            align-items: center;
+            display: flex;
+        }
+
+        .cert-issuer {
+            color: var(--primary);
+            font-weight: 500;
+        }
+.cert-item a:hover{
+    transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+
+}
+
+
+
+.cert-item a:hover svg.external-link-icon {
+    transform: rotate(45deg) scale(1.05);
+    
+}
+
+
+
+.cert-item:hover,
+.experience-item:hover {
+    
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+ 
+
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">JVK</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+<li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Jesvin Varghese Kurien</h1>
+            <p>Full Stack Developer | Problem Solver | Continuous Learner</p>
+            <div class="social-links">
+                <a href="https://github.com/jesvinv4u" target="_blank">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/jesvin-varghese-kurien" target="_blank">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    LinkedIn
+                </a>
+                <a href="mailto:jesvinvk2002@gmail.com">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+                    </svg>
+                    Email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>I am committed to producing high-quality work and have a strong work ethic. I am highly adaptable and have a passion for learning and exploring new ideas.</p>
+                <p>My focus is on continuous improvement and making a positive contribution to any team or project that I work on. With a can-do attitude, I am confident in my ability to tackle challenges head-on and deliver results.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Java</h3>
+                </div>
+                <div class="skill-card">
+                    <h3>Python</h3>
+                </div>
+                <div class="skill-card">
+                    <h3>SQL</h3>
+                </div>
+                <div class="skill-card">
+                    <h3>HTML/CSS</h3>
+                </div>
+                <div class="skill-card">
+                    <h3>JavaScript</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section" style="background: var(--light);">
+        <h2 class="section-title">Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <h3>Remote Tasker - Maven AI</h3>
+                <div class="experience-date">July 2024 - August 2024</div>
+                <p>Solved complex problems presented by clients using Python, Java, and JavaScript, delivering efficient and effective solutions.</p>
+            </div>
+            <div class="experience-item">
+                <h3>Full Stack Development Intern - Bharat Intern</h3>
+                <div class="experience-date">October 2023 - November 2023</div>
+                <p>Focused on full-stack development, completing two assignments that enhanced skills in web development, database management, and user interface design.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <a href="https://github.com/jesvinv4u/movie_recommendation_system" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
+                   
+                   <h3>
+                      Movie Recommendation System
+                      <svg xmlns="http://www.w3.org/2000/svg" 
+                           width="24" 
+                           height="24" 
+                           viewBox="0 0 24 24" 
+                           fill="none" 
+                           stroke="currentColor" 
+                           stroke-width="2" 
+                           stroke-linecap="round" 
+                           stroke-linejoin="round" 
+                           class="external-link-icon">
+                         <path d="M15 3h6v6"></path>
+                         <path d="M10 14 21 3"></path>
+                         <path d="M21 10v11H3V3h11"></path>
+                      </svg>
+                   </h3>
+                   
+                   <p>
+                      Developed an ML-based movie recommendation system for personalized suggestions, 
+                      enhancing user satisfaction by optimizing the movie viewing experience.
+                   </p>
+                </a>
+            </div>
+            
+            <div class="project-card">
+<a href="https://github.com/jesvinv4u/bharat-intern-project/tree/main/project%20management%20tool" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
+
+                <h3>Project Management Tool<svg xmlns="http://www.w3.org/2000/svg" 
+                           width="24" 
+                           height="24" 
+                           viewBox="0 0 24 24" 
+                           fill="none" 
+                           stroke="currentColor" 
+                           stroke-width="2" 
+                           stroke-linecap="round" 
+                           stroke-linejoin="round" 
+                           class="external-link-icon">
+                         <path d="M15 3h6v6"></path>
+                         <path d="M10 14 21 3"></path>
+                         <path d="M21 10v11H3V3h11"></path>
+                      </svg>
+                   </h3>
+
+                <p>Created a project management website with HTML, CSS, and JavaScript. Enables seamless collaboration, progress tracking, and effortless task management.</p>
+</a>
+            </div>
+            
+            <div class="project-card">
+<a href="https://github.com/jesvinv4u/bharat-intern-project/tree/main/content%20management%20tool" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
+
+                <h3>Content Management Tool<svg xmlns="http://www.w3.org/2000/svg" 
+                           width="24" 
+                           height="24" 
+                           viewBox="0 0 24 24" 
+                           fill="none" 
+                           stroke="currentColor" 
+                           stroke-width="2" 
+                           stroke-linecap="round" 
+                           stroke-linejoin="round" 
+                           class="external-link-icon">
+                         <path d="M15 3h6v6"></path>
+                         <path d="M10 14 21 3"></path>
+                         <path d="M21 10v11H3V3h11"></path>
+                      </svg>
+                   </h3>
+                <p>Developed a content management website using HTML, CSS, and JavaScript. Explore user-curated engaging content, insights, and stories effortlessly.</p>
+</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="section" style="background: var(--light);">
+        <h2 class="section-title">Certifications</h2>
+        <div class="certifications-list">
+            <div class="cert-item">
+<a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=AB2B6520EB5DC180F8F49D6FE50E9474C94589AB1806DC872AF2CF428474D297" target="_blank"   rel="noopener noreferrer">
+                <h3>Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate<svg xmlns="http://www.w3.org/2000/svg" 
+                           width="24" 
+                           height="24" 
+                           viewBox="0 0 24 24" 
+                           fill="none" 
+                           stroke="currentColor" 
+                           stroke-width="2" 
+                           stroke-linecap="round" 
+                           stroke-linejoin="round" 
+                           class="external-link-icon">
+                         <path d="M15 3h6v6"></path>
+                         <path d="M10 14 21 3"></path>
+                         <path d="M21 10v11H3V3h11"></path>
+                      </svg>
+                   </h3>
+                <p class="cert-issuer">Oracle</p>
+                <p>Issued Aug 2025 · Expires Aug 2027</p></a>
+            </div>
+            <div class="cert-item">
+<a href="https://www.credly.com/badges/77d06db7-6247-4672-a2e0-076ba1a0e14a/linked_in_profile" target="_blank" rel="noopener noreferrer">
+
+                <h3>AWS Cloud Quest: Cloud Practitioner<svg xmlns="http://www.w3.org/2000/svg" 
+                           width="24" 
+                           height="24" 
+                           viewBox="0 0 24 24" 
+                           fill="none" 
+                           stroke="currentColor" 
+                           stroke-width="2" 
+                           stroke-linecap="round" 
+                           stroke-linejoin="round" 
+                           class="external-link-icon">
+                         <path d="M15 3h6v6"></path>
+                         <path d="M10 14 21 3"></path>
+                         <path d="M21 10v11H3V3h11"></path>
+                      </svg>
+                   </h3>
+                <p class="cert-issuer">Amazon Web Services Training and Certification</p></a>
+
+            </div>
+            <div class="cert-item">
+                <h3>AWS Cloud: Cloud Essentials</h3>
+                <p class="cert-issuer">Amazon Web Services Training and Certification</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section">
+        <h2 class="section-title">Education</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <h3>B.Tech - Jain University</h3>
+                <div class="experience-date">2021 - 2025</div>
+                <p>GPA: 8.02/10.0</p>
+            </div>
+            <div class="experience-item">
+                <h3>Class 12th - CBSE Board</h3>
+                <div class="experience-date">2020 - 2021</div>
+                <p>Score: 85.4%</p>
+            </div>
+<div class="experience-item">
+                <h3>Class 10th - CBSE Board</h3>
+                <div class="experience-date">2020 - 2021</div>
+                <p>Score: 90%</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title" style="color: white;">Get In Touch</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">I'm always open to new opportunities and collaborations!</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+                </svg>
+                <a href="mailto:jesvinvk2002@gmail.com">jesvinvk2002@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 22.621l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-9.638.182-.15 1.193-.988 1.193-.988l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-9.638.182-.15 1.193-.988 1.193-.988l-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24 1.086-6.799-7.82-4.609-9.638.182-.15 1.193-.988 1.193-.988l-3.521-6.795-.005.002c-1.467.724-2.973 1.478-3.975 2.49-1.646 1.653-1.646 4.333 0 5.986l15.125 15.125c1.653 1.646 4.333 1.646 5.986 0 1.012-1.002 1.766-2.508 2.49-3.975z"/>
+                </svg>
+                <a href="tel:+916238913511">+91 6238913511</a>
+            </div>
+            <div class="contact-item">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <a href="https://www.linkedin.com/in/jesvin-varghese-kurien" target="_blank">LinkedIn</a>
+            </div>
+            <div class="contact-item">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                <a href="https://github.com/jesvinv4u" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+
+            // Check if cursor is over dark sections
+            const elementUnderCursor = document.elementFromPoint(e.clientX, e.clientY);
+            const isDarkSection = elementUnderCursor?.closest('.hero, .contact-section');
+            
+            if (isDarkSection) {
+                cursor.classList.add('on-dark');
+                cursorFollower.classList.add('on-dark');
+            } else {
+                cursor.classList.remove('on-dark');
+                cursorFollower.classList.remove('on-dark');
+            }
+        });
+
+        // Cursor hover effects
+        const hoverElements = document.querySelectorAll('a, button, .project-card, .skill-card, .experience-item, .cert-item');
+        
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorFollower.classList.add('hover');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorFollower.classList.remove('hover');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Section reveal animation on scroll
+        const sections = document.querySelectorAll('.section');
+        
+        const revealSection = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const sectionObserver = new IntersectionObserver(revealSection, {
+            root: null,
+            threshold: 0.15,
+            rootMargin: '0px'
+        });
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .experience-item, .cert-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Staggered animation for multiple items
+        document.querySelectorAll('.experience-item').forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.15}s`;
+        });
+
+        document.querySelectorAll('.cert-item').forEach((cert, index) => {
+            cert.style.transitionDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
